@@ -18,7 +18,7 @@ import cs544.service.PostService;
 public class PostRestController {
 	@Autowired
 	private PostService postService;
-
+	// CRUD OPERATIONS
 	@GetMapping("/post/")
 	public List<Post> getAll() {
 		return postService.getAll();
@@ -45,5 +45,10 @@ public class PostRestController {
 	@DeleteMapping("/post/{id}")
 	public void delete(@PathVariable int id) {
 		postService.delete(id);
+	}
+	// ADDITIONAL OPERATIONS
+	@GetMapping("/post/user/{userId}")
+	public List<Post> getByUserId(@PathVariable Integer userId) {
+		return postService.findByUserId(userId);
 	}
 }

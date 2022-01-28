@@ -13,6 +13,7 @@ import cs544.domain.Post;
 @Service
 @Transactional
 public class PostService {
+	// CRUD OPERATIONS
 	@Resource
 	private IPostDao iPostDao;
 	
@@ -34,5 +35,9 @@ public class PostService {
 
 	public void update(Post post) {
 		iPostDao.save(post);
+	}
+	// ADDITIONAL OPERATIONS
+	public List<Post> findByUserId(Integer userId){
+		return iPostDao.findByUserId(userId);
 	}
 }

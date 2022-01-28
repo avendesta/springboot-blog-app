@@ -13,10 +13,10 @@ public class Comment {
 	private Integer id;
 	private String content;	
 	@Temporal(TemporalType.DATE)
-	private Date postedOn;
+	private Date commentedOn;
 	private Boolean active;
-	private Integer user_id;
-	private Integer post_id;
+	private Integer userId;
+	private Integer postId;
 	
 //	public Comment(String content, Date postedOn, Boolean active, Integer user_id, Integer post_id) {
 //		super();
@@ -32,8 +32,8 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", content=" + content + ", postedOn=" + postedOn + ", active="
-				+ active + ", user_id=" + user_id + ", post_id=" + post_id + "]";
+		return "Comment [id=" + id + ", content=" + content + ", postedOn=" + commentedOn + ", active="
+				+ active + ", user_id=" + userId + ", post_id=" + postId + "]";
 	}
 
 }

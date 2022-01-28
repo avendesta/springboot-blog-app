@@ -1,26 +1,14 @@
-package cs544.domain;
+package blogproject.blog.domain;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-@Entity
 public class Post {
-	@Id
-	@GeneratedValue
 	private Integer id;
 	private String title;
 	private String content;
-	
-	@Temporal(TemporalType.DATE)
 	private Date postedOn;
 	private Boolean active;
-	
-	private Integer userId;
+	private Integer user_id;
 
 	public Post() {
 		
@@ -32,7 +20,7 @@ public class Post {
 		this.content = content;
 		this.postedOn = postedOn;
 		this.active = active;
-		this.userId = user_id;
+		this.user_id = user_id;
 	}
 
 	public Integer getId() {
@@ -76,16 +64,16 @@ public class Post {
 	}
 
 	public Integer getUser_id() {
-		return userId;
+		return user_id;
 	}
 
 	public void setUser_id(Integer user_id) {
-		this.userId = user_id;
+		this.user_id = user_id;
 	}
 
 	@Override
 	public String toString() {
 		return "Post [id=" + id + ", title=" + title + ", content=" + content + ", postedOn=" + postedOn + ", active="
-				+ active + ", user_id=" + userId + "]";
+				+ active + ", user_id=" + user_id + "]";
 	}
 }

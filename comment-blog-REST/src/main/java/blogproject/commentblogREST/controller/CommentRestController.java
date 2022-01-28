@@ -18,7 +18,7 @@ import blogproject.commentblogREST.domain.Comment;
 public class CommentRestController {
 	@Autowired
 	private CommentService commentService;
-
+	// CRUD OPERATIONS
 	@GetMapping("/comment")
 	public List<Comment> getAll() {
 		return commentService.getAll();
@@ -45,5 +45,9 @@ public class CommentRestController {
 	public void delete(@PathVariable int id) {
 		commentService.delete(id);
 	}
-
+	// ADDITIONAL OPERATIONS
+	@GetMapping("/comment/post/{postId}")
+	public List<Comment> getCommentByPostId(@PathVariable Integer postId) {
+		return commentService.findByPostId(postId);
+	}
 }

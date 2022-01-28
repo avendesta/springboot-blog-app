@@ -13,6 +13,7 @@ import blogproject.commentblogREST.domain.Comment;
 @Service
 @Transactional
 public class CommentService {
+	// CRUD OPERATIONS
 	@Resource
 	private ICommentDao iCommentDao;
 	public List<Comment> getAll() {
@@ -33,5 +34,12 @@ public class CommentService {
 
 	public void update(Comment comment) {
 		iCommentDao.save(comment);
+	}
+	// ADDITIONAL OPERATIONS
+	public List<Comment> findByPostId(Integer postId){
+		return iCommentDao.findByPostId(postId);
+	}
+	public List<Comment> findByUserId(Integer userId){
+		return iCommentDao.findByUserId(userId);
 	}
 }
