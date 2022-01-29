@@ -34,6 +34,13 @@ public class CommentRestController {
 		commentService.add(comment);
 		return new RedirectView("/comment/"+comment.getId());
 	}
+	/*
+	public String post(Comment comment, Model model) {
+		commentService.add(comment);
+		model.addAttribute("id", comment.getId());
+		return "redirect:/comment/{id}";
+	}
+	*/
 
 	@PostMapping("/comment/{id}")
 	public void put(@PathVariable long id, @RequestBody Comment comment) {
