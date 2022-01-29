@@ -18,22 +18,22 @@ public class Comment {
 	private Integer userId;
 	private Integer postId;
 	
-//	public Comment(String content, Date postedOn, Boolean active, Integer user_id, Integer post_id) {
+//	public Comment(String content, Date postedOn, Boolean active, Integer userId, Integer postId) {
 //		super();
 //		this.content = content;
 //		this.postedOn = postedOn;
 //		this.active = active;
-//		this.user_id = user_id;
-//		this.post_id = post_id;
+//		this.userId = userId;
+//		this.postId = postId;
 //	}
-	public Comment(String content, Date postedOn, Boolean active, Integer user_id, Integer post_id) {
-		this(null, content, postedOn, active, user_id, post_id);
+	public Comment(String content, Date postedOn, Boolean active, Integer userId, Integer postId) {
+		this(null, content, postedOn, active, userId, postId);
 	}
 
 	@Override
 	public String toString() {
 		return "Comment [id=" + id + ", content=" + content + ", postedOn=" + commentedOn + ", active="
-				+ active + ", user_id=" + userId + ", post_id=" + postId + "]";
+				+ active + ", userId=" + userId + ", postId=" + postId + "]";
 	}
 
 }
