@@ -90,12 +90,6 @@ public class MainController {
 		return postAnswer.getBody();
 	}
 	
-	@PutMapping("/post/{postId}")
-	public Post putPost(@PathVariable Integer postId, @RequestBody Post post){
-		ResponseEntity<Post> postAnswer = restTemplate.postForEntity("http://localhost:8081/post/"+postId, post, Post.class);
-		System.out.println(postAnswer);
-		return postAnswer.getBody();
-	}
 	
 	@DeleteMapping("/post/{postId}")
 	public void deletePost(@PathVariable Integer postId){
@@ -105,20 +99,36 @@ public class MainController {
 	@PostMapping("/post/{postId}/comment")
 	public Comment setCommentToPost(@PathVariable Integer postId, @RequestBody Comment comment){
 		comment.setPostId(postId);
-		ResponseEntity<Comment> postAnswer = restTemplate.postForEntity("http://localhost:8081/comment/", comment, Comment.class);
+		ResponseEntity<Comment> postAnswer = restTemplate.postForEntity("http://localhost:8082/comment/", comment, Comment.class);
 		System.out.println(postAnswer);
 		return postAnswer.getBody();
 	}
-	
-	/*@PutMapping("/post/{postId}")
+	@PutMapping("/post/{postId}")
 	public Post putPost(@PathVariable Integer postId, @RequestBody Post post){
-		ResponseEntity<Post> postAnswer = restTemplate.postForEntity("http://localhost:8081/post/"+postId, post, Post.class);
+		ResponseEntity<Post> postAnswer = restTemplate
+				.postForEntity("http://localhost:8081/post/"+postId, post, Post.class);
 		System.out.println(postAnswer);
 		return postAnswer.getBody();
 	}
 	
-	@DeleteMapping("/post/{postId}")
-	public void deletePost(@PathVariable Integer postId){
-		restTemplate.delete("http://localhost:8081/post/"+postId);
-	}*/
+	@PutMapping("/comment/{id}")
+	public void putComment(@PathVariable Integer id, @RequestBody Comment comment){
+		comment.setId(id);
+		
+		System.out.println(":: UPDATE comment");
+		System.out.println(comment);
+		
+		restTemplate.put("http://localhost:8082/comment/"+id, comment);
+//		ResponseEntity<Comment> commetnEntity = restTemplate.postForEntity("http://localhost:8082/comment/"+id, comment,Comment.class);
+//		System.out.println(commetnEntity);
+//		ResponseEntity<Comment> commentAnswer = 
+//				restTemplate.put("http://localhost:8082/comment/"+id, comment);
+//		System.out.println(commentAnswer);
+//		return commentAnswer.getBody();
+	}
+	
+	@DeleteMapping("/post/comment/{commentId}")
+	public void deleteComment(@PathVariable Integer commentId){
+		restTemplate.delete("http://localhost:8082/comment/"+commentId);
+	}
 }
