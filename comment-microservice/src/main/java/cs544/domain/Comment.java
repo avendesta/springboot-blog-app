@@ -3,7 +3,9 @@ package cs544.domain;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
 import lombok.*;
 
@@ -18,14 +20,13 @@ public class Comment {
 	private Integer id;
 	@NotBlank
 	private String content;
-	@NotBlank
+	@Future
 	@Temporal(TemporalType.DATE)
 	private Date commentedOn;
-	@NotBlank
 	private Boolean active;
-	@NotBlank
+	@Positive
 	private Integer userId;
-	@NotBlank
+	@Positive
 	private Integer postId;
 
 	public Comment(String content, Date postedOn, Boolean active, Integer userId, Integer postId) {
