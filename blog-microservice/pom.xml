@@ -8,10 +8,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>blog-project</groupId>
-	<artifactId>blog</artifactId>
+	<artifactId>blog-microservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>blog</name>
-	<description>Edit em</description>
+	<name>blog-microservice</name>
+	<description>blog microservice</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

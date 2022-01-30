@@ -8,10 +8,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>blog-project</groupId>
-	<artifactId>comment-blog-REST</artifactId>
+	<artifactId>comment-microservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>comment-blog-REST</name>
-	<description>comments in a blog post</description>
+	<name>comment-microservice</name>
+	<description>comment microservice</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

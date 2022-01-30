@@ -11,10 +11,10 @@
 	</parent>
 
 	<groupId>blog-project</groupId>
-	<artifactId>post-blog-REST</artifactId>
+	<artifactId>post-microservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>post-blog-REST</name>
-	<description>Demo project for Spring Boot</description>
+	<name>post-microservice</name>
+	<description>post microservice</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
