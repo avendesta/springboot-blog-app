@@ -1,5 +1,6 @@
 package cs544.controller;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import cs544.domain.Post;
 import cs544.domain.PostWithComments;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +31,13 @@ public class MainController {
 
 	@Autowired
 	UserService userService;
+	// redirect to swagger documentation
+	@GetMapping("/doc")
+	ResponseEntity<Void> redirect() {
+		return ResponseEntity.status(HttpStatus.FOUND)
+				.location(URI.create("/swagger-ui.html#/main45controller"))
+				.build();
+	}
 
 	@GetMapping("/post/user/{userId}")
 	public List<Post> getAllPostsByUser(@PathVariable("userId") Integer userId) {
