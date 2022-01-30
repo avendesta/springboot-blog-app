@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/CS544-SpringBlogProject-EA.iml" filepath="$PROJECT_DIR$/.idea/CS544-SpringBlogProject-EA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/blog/blog-microservice.iml" filepath="$PROJECT_DIR$/blog/blog-microservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/comment-blog-REST/comment-microservice.iml" filepath="$PROJECT_DIR$/comment-blog-REST/comment-microservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/post-Blog-REST/post-microservice.iml" filepath="$PROJECT_DIR$/post-Blog-REST/post-microservice.iml" />
+    </modules>
+  </component>
+</project>
