@@ -2,6 +2,8 @@ package cs544.domain;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+
 import lombok.*;
 
 @Entity(name="Comments")
@@ -11,6 +13,7 @@ public class Comment {
 	@Id
 	@GeneratedValue
 	private Integer id;
+	@NotBlank
 	private String content;	
 	@Temporal(TemporalType.DATE)
 	private Date commentedOn;

@@ -1,6 +1,8 @@
 package cs544.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cs544.domain.Comment;
 import cs544.service.CommentService;
@@ -8,14 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import javax.validation.Valid;
 
 
 @RestController
@@ -35,7 +35,7 @@ public class CommentRestController {
     }
 
     @PostMapping("/comment")
-    public ResponseEntity<Comment> comment(@RequestBody Comment comment, UriComponentsBuilder builder) {
+    public ResponseEntity<Comment> comment(@Valid @RequestBody Comment comment, UriComponentsBuilder builder) {
         commentService.add(comment);
 
         HttpHeaders headers = new HttpHeaders();
@@ -67,5 +67,17 @@ public class CommentRestController {
     @GetMapping("/comment/user/{userId}")
     public List<Comment> getCommentByUserId(@PathVariable Integer userId) {
         return commentService.findByUserId(userId);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
     }
 }
