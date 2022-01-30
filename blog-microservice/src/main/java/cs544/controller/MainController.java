@@ -9,6 +9,7 @@ import cs544.domain.PostWithComments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -29,7 +30,7 @@ public class MainController {
 	@Autowired
 	UserService userService;
 
-	@RequestMapping("/post/user/{userId}")
+	@GetMapping("/post/user/{userId}")
 	public List<Post> getAllPostsByUser(@PathVariable("userId") Integer userId) {
 		Post[] allUserPosts = restTemplate.getForObject("http://localhost:8081/post/user/" + userId, Post[].class);
 		List<Post> posts = Arrays.asList(allUserPosts);
@@ -37,7 +38,7 @@ public class MainController {
 		return posts;
 	}
 
-	@RequestMapping("/post/{postId}")
+	@GetMapping("/post/{postId}")
 	public PostWithComments getPostWithComments(@PathVariable("postId") Integer postId) {
 		Post post = restTemplate.getForObject("http://localhost:8081/post/" + postId, Post.class);
 		Comment[] commentArray = restTemplate.getForObject("http://localhost:8082/comment/post/" + postId,
@@ -51,7 +52,7 @@ public class MainController {
 		return pwc;
 	}
 
-	@RequestMapping("/post")
+	@GetMapping("/post")
 	public List<Post> getAllPosts() {
 		Post[] allUserPosts = restTemplate.getForObject("http://localhost:8081/post/", Post[].class);
 		List<Post> posts = Arrays.asList(allUserPosts);
@@ -59,7 +60,7 @@ public class MainController {
 		return posts;
 	}
 
-	@RequestMapping("/post/{postId}/comments")
+	@GetMapping("/post/{postId}/comments")
 	public List<Comment> getAllCommentsByPost(@PathVariable("postId") Integer postId) {
 
 		Comment[] commentArray = restTemplate.getForObject("http://localhost:8082/comment/post/" + postId,
@@ -70,7 +71,7 @@ public class MainController {
 		return lstComments;
 	}
 
-	@RequestMapping("/post/comments/user/{userId}")
+	@GetMapping("/post/comments/user/{userId}")
 	public List<Comment> getAllCommentsByUser(@PathVariable("userId") Integer userId) throws Exception {
 		List<Comment> lstComments = new ArrayList<>();
 
