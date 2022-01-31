@@ -38,6 +38,13 @@ public class UserService {
 	}
 	
 	//ADDITIONAL METHODS
+	public User isUser(int id) {
+		try {
+			return get(id);
+		} catch (Exception e) {
+			return null;
+		}
+	}
 	public boolean isPoster(int id) {
 		User user = get(id);
 		if(user.getRoleId().equals(Util.ID_POSTER))

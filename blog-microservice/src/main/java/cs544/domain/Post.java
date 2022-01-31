@@ -15,7 +15,7 @@ public class Post {
 	private String content;
 	private Date postedOn;
 	private Boolean active;
-	private Integer user_id;
+	private Integer userId;
 	
 	public Post(String title, String content, Date postedOn, Boolean active, Integer user_id) {
 		super();
@@ -23,12 +23,12 @@ public class Post {
 		this.content = content;
 		this.postedOn = postedOn;
 		this.active = active;
-		this.user_id = user_id;
+		this.userId = user_id;
 	}
 
 	@Override
 	public String toString() {
 		return "Post [id=" + id + ", title=" + title + ", content=" + content + ", postedOn=" + postedOn + ", active="
-				+ active + ", user_id=" + user_id + "]";
+				+ active + ", user_id=" + userId + "]";
 	}
 }
