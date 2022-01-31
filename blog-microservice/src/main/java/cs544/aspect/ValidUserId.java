@@ -19,6 +19,12 @@ public class ValidUserId {
 	@Autowired
 	private UserService userService;
 
+    // added for logging purpose, prints to console when a get request is sent
+    @Before("@annotation(org.springframework.web.bind.annotation.GetMapping)")
+    public void GetMessageLog() {
+        System.out.println("GetMessage invoked");
+    }
+
 	@Before("execution(* cs544.controller.MainController.setPost(..))")
     public void validSetPost(JoinPoint jp) throws Exception{
         Object[] args = jp.getArgs();
@@ -33,9 +39,7 @@ public class ValidUserId {
             	throw new UnauthorizedUserException("User does not have permission to Post!");
             }
         }
-        
-        System.out.println(args[0]);
-        System.out.println("I am an advice: "+p);
+
     }
 	
     @Before("execution(* cs544.controller.MainController.putPost(..))")
@@ -50,9 +54,6 @@ public class ValidUserId {
         if(userService.isAdmin(p.getUserId()) || userService.isPoster(p.getUserId())) {
         	throw new UnauthorizedUserException("User does not have permission to Post!");
         }
-        
-        System.out.println(args[0]);
-        System.out.println("I am an advice: "+p);
     }
     
     @Before("execution(* cs544.controller.MainController.setCommentToPost(..))")
@@ -63,8 +64,5 @@ public class ValidUserId {
         if(userService.isUser(c.getUserId()) == null) {
         	throw new UserDoesNotExistException("User does not exists!");
         }
-        
-        System.out.println(args[0]);
-        System.out.println("I am an advice: "+c);
     }
 }
