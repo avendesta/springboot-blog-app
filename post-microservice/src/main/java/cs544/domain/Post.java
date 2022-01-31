@@ -2,12 +2,10 @@ package cs544.domain;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,12 +25,10 @@ public class Post {
 	private String title;
 	@NotBlank
 	private String content;
-	@NotBlank
-	@Temporal(TemporalType.DATE)
 	private Date postedOn;
-	@NotBlank
 	private Boolean active;
-	@NotBlank
+	@Positive
+	@NotNull
 	private Integer userId;
 
 	public Post(String title, String content, Date postedOn, boolean active, Integer user_id) {
@@ -42,6 +38,11 @@ public class Post {
 		this.postedOn = postedOn;
 		this.active = active;
 		this.userId = user_id;
+	}
+
+	@PrePersist
+	protected void prePersist() {
+		postedOn = new Date(); active=true;
 	}
 
 	@Override

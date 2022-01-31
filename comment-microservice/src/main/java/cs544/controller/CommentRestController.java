@@ -44,7 +44,7 @@ public class CommentRestController {
     }
 
     @PutMapping("/comment/{id}")
-    public ResponseEntity<Comment> put(@PathVariable Integer id, @RequestBody Comment comment, UriComponentsBuilder builder) {
+    public ResponseEntity<Comment> put(@PathVariable Integer id, @Valid @RequestBody Comment comment, UriComponentsBuilder builder) {
         comment.setId(id);
         commentService.update(comment);
 
