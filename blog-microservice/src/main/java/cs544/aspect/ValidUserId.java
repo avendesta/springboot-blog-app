@@ -2,6 +2,8 @@ package cs544.aspect;
 
 import cs544.domain.Comment;
 import cs544.domain.Post;
+import cs544.exception.UnauthorizedUserException;
+import cs544.exception.UserDoesNotExistException;
 import cs544.service.UserService;
 
 import org.aspectj.lang.JoinPoint;
@@ -16,19 +18,19 @@ public class ValidUserId {
 	
 	@Autowired
 	private UserService userService;
-	
+
 	@Before("execution(* cs544.controller.MainController.setPost(..))")
     public void validSetPost(JoinPoint jp) throws Exception{
         Object[] args = jp.getArgs();
         Post p = (Post)args[0];
         
         if(userService.isUser(p.getUserId()) == null) {
-        	throw new Exception("User does not exists!");
+        	throw new UserDoesNotExistException("User does not exists!");
         }
         
         if(!userService.isAdmin(p.getUserId())) {
         	if(!userService.isPoster(p.getUserId())) {
-            	throw new Exception("User does not have permition to Post!");
+            	throw new UnauthorizedUserException("User does not have permission to Post!");
             }
         }
         
@@ -42,11 +44,11 @@ public class ValidUserId {
         Post p = (Post)args[1];
         
         if(userService.isUser(p.getUserId()) == null) {
-        	throw new Exception("User does not exists!");
+        	throw new UserDoesNotExistException("User does not exists!");
         }
         
         if(userService.isAdmin(p.getUserId()) || userService.isPoster(p.getUserId())) {
-        	throw new Exception("User does not have permition to Post!");
+        	throw new UnauthorizedUserException("User does not have permission to Post!");
         }
         
         System.out.println(args[0]);
@@ -59,7 +61,7 @@ public class ValidUserId {
         Comment c = (Comment)args[1];
         
         if(userService.isUser(c.getUserId()) == null) {
-        	throw new Exception("User does not exists!");
+        	throw new UserDoesNotExistException("User does not exists!");
         }
         
         System.out.println(args[0]);
