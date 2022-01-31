@@ -43,7 +43,7 @@ public class PostRestController {
 		return new ResponseEntity<Post>(post, headers, HttpStatus.CREATED);
 	}
 
-	@PutMapping("/post/{id}")
+	@PostMapping("/post/{id}")
 	public ResponseEntity<Post> put(@PathVariable Integer id, @Valid @RequestBody Post post, UriComponentsBuilder builder) {
 		post.setId(id);
 		postService.update(post);
