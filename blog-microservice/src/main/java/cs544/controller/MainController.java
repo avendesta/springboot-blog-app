@@ -12,8 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+
+
 import cs544.domain.Comment;
 import cs544.service.UserService;
+import cs544.utils.Util;
 
 @RestController
 @RequestMapping("/client")
@@ -22,12 +25,15 @@ public class MainController {
 	RestTemplate restTemplate;
 
 	@Autowired
+	Util util;
+
+	@Autowired
 	UserService userService;
+
 	// redirect to swagger documentation
 	@GetMapping("/doc")
 	ResponseEntity<Void> redirect() {
-		return ResponseEntity.status(HttpStatus.FOUND)
-				.location(URI.create("/swagger-ui.html#/main45controller"))
+		return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("/swagger-ui.html#/main45controller"))
 				.build();
 	}
 
@@ -55,7 +61,7 @@ public class MainController {
 
 	@GetMapping("/post")
 	public List<Post> getAllPosts() {
-		Post[] allUserPosts = restTemplate.getForObject("http://localhost:8081/post/", Post[].class);
+		Post[] allUserPosts = restTemplate.getForObject(util.getInstance("post")+"/post/", Post[].class);
 		List<Post> posts = Arrays.asList(allUserPosts);
 		System.out.println(posts);
 		return posts;
