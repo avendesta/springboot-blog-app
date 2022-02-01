@@ -55,9 +55,14 @@ public class ValidUserId {
     public void validUserComment(JoinPoint jp) throws Exception{
         Object[] args = jp.getArgs();
         Comment c = (Comment)args[1];
-        
+
         if(userService.isUser(c.getUserId()) == null) {
         	throw new UserDoesNotExistException("User does not exists!");
+        }
+        if(!userService.isAdmin(c.getUserId())) {
+            if(!userService.isPoster(c.getUserId())) {
+                throw new UnauthorizedUserException("User does not have permission to Post!");
+            }
         }
     }
 }
