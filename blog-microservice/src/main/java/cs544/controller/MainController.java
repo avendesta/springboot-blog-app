@@ -5,6 +5,8 @@ import java.util.*;
 
 import cs544.domain.Post;
 import cs544.domain.PostWithComments;
+import cs544.exception.UnauthorizedUserException;
+import cs544.exception.UserDoesNotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -132,5 +134,22 @@ public class MainController {
 	@DeleteMapping("/post/comment/{commentId}")
 	public void deleteComment(@PathVariable Integer commentId) {
 		restTemplate.delete("http://localhost:8082/comment/" + commentId);
+	}
+
+	// Custome error message on response body
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(UserDoesNotExistException.class)
+	public Map<String, String> handleUserDoesNotExistException(UserDoesNotExistException ex) {
+		Map<String, String> errors = new HashMap<>();
+		errors.put("error", ex.getMessage());
+		return errors;
+	}
+
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(UnauthorizedUserException.class)
+	public Map<String, String> handleUnauthorizedUserException(UnauthorizedUserException ex) {
+		Map<String, String> errors = new HashMap<>();
+		errors.put("error", ex.getMessage());
+		return errors;
 	}
 }
