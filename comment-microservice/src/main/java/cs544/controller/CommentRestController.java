@@ -1,5 +1,6 @@
 package cs544.controller;
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,13 @@ import javax.validation.Valid;
 public class CommentRestController {
     @Autowired
     private CommentService commentService;
+
+    // redirect to swagger documentation
+    @GetMapping("/doc")
+    ResponseEntity<Void> redirect() {
+        return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("/swagger-ui.html#/comment45rest45controller"))
+                .build();
+    }
 
     // CRUD OPERATIONS
     @GetMapping("/comment")
