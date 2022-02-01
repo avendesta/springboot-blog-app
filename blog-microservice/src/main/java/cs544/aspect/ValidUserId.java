@@ -46,13 +46,28 @@ public class ValidUserId {
         	throw new UserDoesNotExistException("User does not exists!");
         }
         
-        if(userService.isAdmin(p.getUserId()) || userService.isPoster(p.getUserId())) {
+        if(!userService.isAdmin(p.getUserId()) && !userService.isPoster(p.getUserId())) {
         	throw new UnauthorizedUserException("User does not have permission to Post!");
         }
     }
     
     @Before("execution(* cs544.controller.MainController.setCommentToPost(..))")
-    public void validUserComment(JoinPoint jp) throws Exception{
+    public void validUserSetComment(JoinPoint jp) throws Exception{
+        Object[] args = jp.getArgs();
+        Comment c = (Comment)args[1];
+
+        if(userService.isUser(c.getUserId()) == null) {
+        	throw new UserDoesNotExistException("User does not exists!");
+        }
+        if(!userService.isAdmin(c.getUserId())) {
+            if(!userService.isPoster(c.getUserId())) {
+                throw new UnauthorizedUserException("User does not have permission to Post!");
+            }
+        }
+    }
+    
+    @Before("execution(* cs544.controller.MainController.putComment(..))")
+    public void validUserPutComment(JoinPoint jp) throws Exception{
         Object[] args = jp.getArgs();
         Comment c = (Comment)args[1];
 
