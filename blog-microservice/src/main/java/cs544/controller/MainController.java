@@ -39,7 +39,7 @@ public class MainController {
 
 	@GetMapping("/post/user/{userId}")
 	public List<Post> getAllPostsByUser(@PathVariable("userId") Integer userId) {
-		Post[] allUserPosts = restTemplate.getForObject("http://localhost:8081/post/user/" + userId, Post[].class);
+		Post[] allUserPosts = restTemplate.getForObject(util.getInstance("post-service")+"/post/user/" + userId, Post[].class);
 		List<Post> posts = Arrays.asList(allUserPosts);
 		System.out.println(posts);
 		return posts;
@@ -47,8 +47,8 @@ public class MainController {
 
 	@GetMapping("/post/{postId}")
 	public PostWithComments getPostWithComments(@PathVariable("postId") Integer postId) {
-		Post post = restTemplate.getForObject("http://localhost:8081/post/" + postId, Post.class);
-		Comment[] commentArray = restTemplate.getForObject("http://localhost:8082/comment/post/" + postId,
+		Post post = restTemplate.getForObject(util.getInstance("post-service")+"/post/" + postId, Post.class);
+		Comment[] commentArray = restTemplate.getForObject(util.getInstance("comment-service")+"/comment/post/" + postId,
 				Comment[].class);
 		List<Comment> comments = Arrays.asList(commentArray);
 
@@ -61,7 +61,7 @@ public class MainController {
 
 	@GetMapping("/post")
 	public List<Post> getAllPosts() {
-		Post[] allUserPosts = restTemplate.getForObject(util.getInstance("post")+"/post/", Post[].class);
+		Post[] allUserPosts = restTemplate.getForObject(util.getInstance("post-service")+"/post/", Post[].class);
 		List<Post> posts = Arrays.asList(allUserPosts);
 		System.out.println(posts);
 		return posts;
@@ -70,7 +70,7 @@ public class MainController {
 	@GetMapping("/post/{postId}/comments")
 	public List<Comment> getAllCommentsByPost(@PathVariable("postId") Integer postId) {
 
-		Comment[] commentArray = restTemplate.getForObject("http://localhost:8082/comment/post/" + postId,
+		Comment[] commentArray = restTemplate.getForObject(util.getInstance("comment-service")+"/comment/post/" + postId,
 				Comment[].class);
 		List<Comment> lstComments = Arrays.asList(commentArray);
 
@@ -83,7 +83,7 @@ public class MainController {
 		List<Comment> lstComments = new ArrayList<>();
 
 		if (userService.isPoster(userId) || userService.isAdmin(userId)) {
-			Comment[] commentArray = restTemplate.getForObject("http://localhost:8082/comment/user/" + userId,
+			Comment[] commentArray = restTemplate.getForObject(util.getInstance("comment-service")+"/comment/user/" + userId,
 					Comment[].class);
 			lstComments = Arrays.asList(commentArray);
 		} else {
@@ -96,7 +96,7 @@ public class MainController {
 
 	@PostMapping("/post")
 	public Post setPost(@RequestBody Post post) {
-		ResponseEntity<Post> postAnswer = restTemplate.postForEntity("http://localhost:8081/post/", post, Post.class);
+		ResponseEntity<Post> postAnswer = restTemplate.postForEntity(util.getInstance("post-service")+"/post/", post, Post.class);
 		System.out.println(postAnswer);
 		return postAnswer.getBody();
 	}
@@ -109,7 +109,7 @@ public class MainController {
 	@PostMapping("/post/{postId}/comment")
 	public Comment setCommentToPost(@PathVariable Integer postId, @RequestBody Comment comment) {
 		comment.setPostId(postId);
-		ResponseEntity<Comment> postAnswer = restTemplate.postForEntity("http://localhost:8082/comment/", comment,
+		ResponseEntity<Comment> postAnswer = restTemplate.postForEntity(util.getInstance("comment-service")+"/comment/", comment,
 				Comment.class);
 		System.out.println(postAnswer);
 		return postAnswer.getBody();
@@ -117,7 +117,7 @@ public class MainController {
 
 	@PutMapping("/post/{postId}")
 	public Post putPost(@PathVariable Integer postId, @RequestBody Post post) {
-		ResponseEntity<Post> postAnswer = restTemplate.postForEntity("http://localhost:8081/post/" + postId, post,
+		ResponseEntity<Post> postAnswer = restTemplate.postForEntity(util.getInstance("post-service")+"/post/" + postId, post,
 				Post.class);
 		System.out.println(postAnswer);
 		return postAnswer.getBody();
@@ -131,7 +131,7 @@ public class MainController {
 		System.out.println(comment);
 
 //		restTemplate.put("http://localhost:8082/comment/"+id, comment);
-		ResponseEntity<Comment> postAnswer = restTemplate.postForEntity("http://localhost:8082/comment/" + id, comment,
+		ResponseEntity<Comment> postAnswer = restTemplate.postForEntity(util.getInstance("comment-service")+"/comment/" + id, comment,
 				Comment.class);
 		System.out.println(postAnswer);
 		return postAnswer.getBody();
